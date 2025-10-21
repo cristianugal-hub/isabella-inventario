@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import { Plus, Minus, Package2, ClipboardList, ArrowRight, RefreshCcw, AlertTriangle, ShoppingCart, Filter, Search, Check, Trash2 } from "lucide-react";
+import { Plus, Minus, Package2, ClipboardList, ArrowRight, RefreshCcw, AlertTriangle, ShoppingCart, Search, Check, Trash2 } from "lucide-react";
 import { db } from "./firebase";
 import {
   collection, addDoc, updateDoc, doc, onSnapshot, serverTimestamp, query, orderBy
@@ -36,7 +36,9 @@ function NewProductForm(){
 
   return (
     <div className="card">
-      <h3 className="h3" style={{margin:"0 0 8px 0", fontWeight:700}}><span className="flex"><Package2 size={18}/>Nuevo producto</span></h3>
+      <h3 className="h3" style={{margin:"0 0 8px 0", fontWeight:700}}>
+        <span className="flex"><Package2 size={18}/> Nuevo producto</span>
+      </h3>
       <form onSubmit={onSubmit} className="grid" style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:8}}>
         <div style={{gridColumn:'1 / -1'}}>
           <label className="label">Nombre</label>
@@ -185,7 +187,9 @@ export default function App(){
               <p className="subtitle">Control de existencias, alertas y pedidos automáticos</p>
             </div>
           </div>
-          <div className="searchbar" style="">
+
+          {/* 🔧 FIX: style eliminado */}
+          <div className="searchbar">
             <div className="flex" style={{gap:8, alignItems:'center'}}>
               <Search size={16} color="#6b7280"/>
               <input className="input" placeholder="Buscar por nombre, proveedor o código" value={qText} onChange={e=>setQText(e.target.value)} style={{minWidth:260}}/>
@@ -205,7 +209,7 @@ export default function App(){
 
           <div className="card">
             <div className="flex" style={{justifyContent:'space-between', marginBottom:8}}>
-              <h3 style={{margin:0, fontWeight:700}}><span className="flex"><ClipboardList size={18}/>Inventario</span></h3>
+              <h3 style={{margin:0, fontWeight:700}}><span className="flex"><ClipboardList size={18}/> Inventario</span></h3>
               <div className="flex">
                 <button className="iconbtn" title="Ver pedidos" onClick={()=>setShowOrders(s=>!s)}><ShoppingCart size={18}/></button>
               </div>
@@ -254,12 +258,14 @@ export default function App(){
                   </tbody>
                 </table>
                 {filtered.length===0 && (
-                  <div style={{textAlign:'center', color:'var(--muted)', padding:'24px 0'}}>Sin productos. Agrega el primero a la izquierda.</div>
+                  <div style={{textAlign:'center', color:'var(--muted)', padding:'24px 0'}}>
+                    Sin productos. Agrega el primero a la izquierda.
+                  </div>
                 )}
               </div>
             ) : (
               <div>
-                <div className="notice"><AlertTriangle size={16}/>Se muestran productos con faltantes respecto al stock ideal.</div>
+                <div className="notice"><AlertTriangle size={16}/> Se muestran productos con faltantes respecto al stock ideal.</div>
                 <div style={{marginTop:12}}>
                   <OrderDraft itemsBySupplier={itemsBySupplier}/>
                 </div>
